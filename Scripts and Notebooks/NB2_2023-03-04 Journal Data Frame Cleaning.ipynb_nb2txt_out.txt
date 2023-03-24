@@ -1,0 +1,71 @@
+# NB2 Journal Data Frame Cleaning
+**Purpose**: Here, we start with a collection of data frames for publications pulled from [Scimago Journal & Country Rank](https://www.scimagojr.com/journalrank.php) including metrics about publications divided into different subject areas. Given the scope of researchers who have published work in perovskites, we have pulled publications from the following subject areas:
+- Materials Science
+- Environmental Science
+- Engineering
+- Energy
+- Chemistry
+- Physics and Astronomy
+- Chemical Engineering
+- Multidisciplinary (contains journals of interest such as Nature and Science)
+
+The goal of this notebook is to concatenate the individual data frames into a single data frame called `jour_df` and clean that data frame such that we can *join* the titles of the publications onto the publication titles in the `papers_df` so that `papers_df` will contain metric information about the source that will influence the entry's rank.
+## Step 1: Concatenate data frames.
+To ensure the successful conversion of the original data from the CSV file into a Pandas data frame, we must first perform preliminary text format editing. We accomplish this by iterating through the lines in the CSV file and using the `.replace()` method to modify any strings that require reformatting. We then append each line, whether edited or not, to a `txt` file that will be utilized in generating the Pandas data frame. Our specific modification involves replacing instances of `&amp;` with `&amp;`, as the delimiter is `;` and we want to avoid the columns splitting the string after `&amp;`.
+
+*Note*: Attempts were made to edit the CSV files directly, but this ended up being the most effective method.
+Next, we will concatenate the individual data frames stored in the `txt` files into one data frame titled `jour_df`.
+Here is the resulting data frame `jour_df`
+Here are the descriptions of the columns that make up `jour_df` (pulled from https://www.scimagojr.com/journalrank.php)
+
+- `Title`: The title of the publication 
+- `Type`: The type of publication (journal article, book, etc.)
+- `SJR`: "SCImago Journal Rank indicator. It is a measure of journal's impact, influence or prestige. It expresses the average number of years weighted citations received in the selected year by the documents published in the journal in the three previous years.
+- `H index`: "Journal's number of citations (h) that have received at least h citations over the whole period"
+- `Country`: The location of the publisher
+- `Region`: The region of the publisher's country.
+## Step 2: Cleaning `jour_df`
+First, let's check to see if `jour_df` has any duplicate entries. We'd expect there to be duplicate publication entires if a publication is present in more than one subject area's data frame. (Example: the publication `ACS Nano` could be considered to span both the Materials Science and Chemistry subject area, so it would be added to `jour_df` from both subject area data frames).
+Let's remove the duplicated entries.
+It looks like most of the entires in `jour_df` were duplicated since the the data frame originally had over 57,000 entries and now has about 6,5000.
+Let's look at some formatting changes we can make to the entires.
+`Title`, `Type` `Country` and `Region` appear to be assigned the appropriate data type (object) while `SJR` and `H index` should be changed to a numeric data type. First, let's  replace `,` with `.` in `SJR` so it can be interpreted as a `float` and then convert `SJR` and `H index` into numeric data types.
+It looks like the data type of `SJR` and `H index` successfully changed into numeric data types! Now let's continue editing the format of the `Title` column .Let's start with remove `""` from the values in `Title`.
+Let's also strip an white space from the remaining object columns for good measure.
+Next, let's assess the null values in the data frame.
+It looks like `SJR` and `H index` have the most null values. Let's investigate the null values in the `SJR` column.
+From investigating the entires on the [website](https://www.scimagojr.com/), it appears that the null entries are due to the website having no data on to generate a `SJR` value for the journal. For now, let's leave those columns as null values and decide to keep them once we combined the entires in `jour_df` with `papers_df`.
+Let's investigate the entires with null values for `H index`
+It looks like the first row (index = 1367) is just the heading, so that row can be deleted.
+The second row (index = 6037) appears to be an entry that needs to be manually reformatted. Let's look at that row more closely.
+We can use the information [directly from the website](https://www.scimagojr.com/journalsearch.php?q=21578&tip=sid&clean=0) to reformat this entry.
+Now let's look at the null values.
+It looks like all the `H index` null values were dropped and we dropped two null values in the `SJR` columns as well.
+Let's investigate the values in the `Type` column.
+It looks like the types match up similarly with the publication types chosen for the `papers_df`. However, we have an additional category, `trade journal`, but that may include some publications in the `papers_df` so we'll keep all the publications from each category.
+Next, let's assess the contents in `Title`
+There should be an equal number of unique `Title` values to the number of rows in the data frame, let's check if thats true.
+It appears that there are repeated values in `Title`. Let's try to find them.
+Let's investigate the entries with repeated values from `Title`
+From the sample of 3 journals with repeated values for `Title`, it looks like the duplications originate from a publication with the same name having a different country of origin, or metric such as `H index`. To reduce confusion when joining the `papers_df` on the `jour_df`, let's remove duplicate entries with the lower `H index` value, since its less likely to be the publication that the citation is referring to.
+It looks like duplicated entires were properly addressed!
+Let's look into the distribution of the values for `Country` and `Region`
+With 84 countries and the United States, United Kingdom and Netherlands alone accounting for 50% of the counts, `Country` might not be helpful in ranking the entires but could used as an interesting metric to see the distribution of publishing locations for the entires in `papers_df`. The same can be said for the values in `Region` as well, therefore, let's keep those columns in the data frame.
+## Step 3: Reformat the values in `Title` 
+Our end goal is to join the values in `jour_df` onto `papers_df` using the names of the publications. For the joining to work, the names of the publications must have the same format. Therefore, we must apply a standard strip format for all the values in both the `Title` column of `jour_df` and the `Source` column of `papers_df`. The format will follow the following criteria:
+
+1. No leading articles (Remove The, A/An at the beginning of the Titles)
+2. Remove the special characters `:` and `-`
+3. Keep the character `&`
+3. Remove double spacing
+5. Remove any qualifiers such as `(discontinued)`
+5. All characters are lower case
+
+We'll use the function `edit_title` to apply these formatting edits using regex. We'll save the data frame with the reformatted values for `Title` under the variable `test_df`.
+Let's check to make sure the number of unique values in `Title` are preserved.
+Let's see what the duplicated title is.
+It looks like there is a book and journal article that go by the same name, `nanoscience and technology`. Let's remove the book series entry since the journal entry has a higher `H index` and because almost 80% of the entires in `papers_df` are of journal entires.
+Let's check again to make sure the number of unique values in `Title` are preserved.
+The value counts match! Finally, let's check the null values in `test_df`.
+There are no additional null values introduced. Let's replace `jour_df` with the data frame stored in `test_df` and save `test_df` as a pickle.
+---
