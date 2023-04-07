@@ -1,0 +1,46 @@
+from tempfile import mkdtemp
+# Define features and target colums
+X_train = ml_df.drop('PubTier', axis = 1)
+y_train = ml_df['PubTier']
+
+# Perform train-test split
+X_train, X_test, y_train, y_test =  train_test_split(X_train, y_train, test_size=0.25, random_state = 1)
+
+#Define estimators
+estimators = [
+    ('scalar', StandardScaler()),
+    ('dim', PCA())
+    ('model', DecisionTreeClassifier())]
+
+c_vals = np.arange(0.005,0.0105,0.0002)
+pca_vals = np.arange(6, 31, 2)
+depth_vals = np.arange(5, 10, 1)
+n_est_vals = np.arange(408, 412, 1)
+
+# Initiate Pipeline object
+cachedir = mkdtemp(dir = r'D:\Git\tmp')
+pipe = Pipeline(estimators, memory = cachedir)
+
+# Define parameter grid for grid search
+param_grid = [
+    {'model': [RandomForestClassifier()],
+     'scalar':[StandardScaler()],
+     'dim':[None],
+     'model__n_estimators': n_est_vals,
+    'model__max_depth': depth_vals},
+    {'model': [DecisionTreeClassifier()],
+     'scalar':[StandardScaler()],
+     'dim':[None],
+    'model__max_depth': depth_vals},
+    {'model': [LogisticRegression()],
+     'scalar':[StandardScaler()],
+     'dim':[PCA()],
+    'model__C': c_vals,
+     'dim__n_components': pca_vals}
+]
+
+# Initiate the GridSearchCV object with a 5-fold cross validation
+grid = GridSearchCV(pipe, param_grid=param_grid, cv = 5)
+
+# Perform the grid search, fitting the grid search to the training data only
+grid.fit(X_train, y_train)
