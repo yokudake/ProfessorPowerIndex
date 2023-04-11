@@ -5,8 +5,8 @@ By Kelly-Marie Yokuda, Data Science Diploma Candidate
 
 ## Repository Contents
 
-### Jupyter Notebooks 
-This repository contains the following Jupyter Notebooks whose order is as follows:
+###  Notebooks, Data and Outputs/
+This folder contains the following Jupyter Notebooks whose order is as follows:
  
 #### [Notebook 1 : Building Schema & Data Cleaning](https://github.com/yokudake/BrainStationCapstone/blob/783f5f91b8fbee8a2f4fb5267f45ce15b9910e93/Notebooks,%20Data%20and%20Outputs/Notebook%201%20Building%20Schema%20and%20Data%20Cleaning.ipynb)
 This notebook contains preliminary data set cleaning, exploratory data analysis and details on schema design.
