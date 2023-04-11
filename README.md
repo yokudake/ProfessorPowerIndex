@@ -20,11 +20,11 @@ This notebook documents the building of the final data set for deployment into m
 #### [Notebook 4: Initial Modeling Assessment](https://github.com/yokudake/BrainStationCapstone/blob/7f66f7dce7d35478a45b6b69e5abf79ca3ab4966/Notebooks,%20Data%20and%20Outputs/Notebook%204%20Initial%20Modeling%20Assessment.ipynb)
 This notebook documents the initial attempts at classifying the data set using different machine learning models, including employing GridSearchCV.
 
-### Raw Data
+### Notebooks, Data and Outputs/RawData/
 
 This folder contains the rata data CSV folders from Publish or Perish and SciMago.
 
-### Output
+### Notebooks, Data and Outputs/OutPut/
 
 This folder contains the outputs of the Jupyter Notebooks, including pickled models and data frames.
 
