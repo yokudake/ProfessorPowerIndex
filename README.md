@@ -8,10 +8,10 @@ By Kelly-Marie Yokuda, Data Science Diploma Candidate
 ### Jupyter Notebooks 
 This repository contains the following Jupyter Notebooks whose order is as follows:
  
-#### [Notebook 1 : Building Schema & Data Cleaning](https://github.com/yokudake/BrainStationCapstone/blob/08829c78f506fcec3328891b32cbc100010fce98/Notebooks,%20Data%20and%20Outputs/Notebook%201%20Building%20Schema%20and%20Data%20Cleaning.ipynb)
+#### [Notebook 1 : Building Schema & Data Cleaning](https://github.com/yokudake/BrainStationCapstone/blob/783f5f91b8fbee8a2f4fb5267f45ce15b9910e93/Notebooks,%20Data%20and%20Outputs/Notebook%201%20Building%20Schema%20and%20Data%20Cleaning.ipynb)
 This notebook contains preliminary data set cleaning, exploratory data analysis and details on schema design.
 
-#### [Notebook 2: Feature Engineering Author Names](https://github.com/yokudake/BrainStationCapstone/blob/7f66f7dce7d35478a45b6b69e5abf79ca3ab4966/Notebooks,%20Data%20and%20Outputs/Notebook%202%20Feature%20Engineering%20Author%20Names.ipynb)
+#### [Notebook 2: Feature Engineering Author Names](https://github.com/yokudake/BrainStationCapstone/blob/efe053d0c1fecabbcae8579ae36dd37b2cf3d82c/Notebooks,%20Data%20and%20Outputs/Notebook%202%20Feature%20Engineering%20Author%20Names.ipynb)
 This notebook contains additional feature engineering specifically to reduce redundancy in author names formatting.
 
 #### [Notebook 3: Building the Machine Learning DataSet](https://github.com/yokudake/BrainStationCapstone/blob/efe053d0c1fecabbcae8579ae36dd37b2cf3d82c/Notebooks,%20Data%20and%20Outputs/Notebook%203%20Building%20the%20Machine%20Learning%20DataSet.ipynb)
