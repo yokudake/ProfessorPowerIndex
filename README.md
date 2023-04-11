@@ -14,10 +14,10 @@ This notebook contains preliminary data set cleaning, exploratory data analysis 
 #### [Notebook 2: Feature Engineering Author Names](https://github.com/yokudake/BrainStationCapstone/blob/7f66f7dce7d35478a45b6b69e5abf79ca3ab4966/Notebooks,%20Data%20and%20Outputs/Notebook%202%20Feature%20Engineering%20Author%20Names.ipynb)
 This notebook contains additional feature engineering specifically to reduce redundancy in author names formatting.
 
-#### [Notebook 3: Building the Machine Learning DataSet](https://github.com/yokudake/BrainStationCapstone/blob/7f66f7dce7d35478a45b6b69e5abf79ca3ab4966/Notebooks,%20Data%20and%20Outputs/Notebook%203%20Building%20the%20Machine%20Learning%20DataSet.ipynb)
+#### [Notebook 3: Building the Machine Learning DataSet](Notebooks, Data and Outputs/Notebook 3 Building the Machine Learning DataSet.ipynb)
 This notebook documents the building of the final data set for deployment into machine learning, including additional exploratory data analysis on numeric columns and development of the target variable column.
 
-#### [Notebook 4: Initial Modeling Assessment](https://github.com/yokudake/BrainStationCapstone/blob/152abf2ff6db8a5c5679e0a9e999bddff891fa83/Notebooks,%20Data%20and%20Outputs/Notebook%204%20Initial%20Modeling%20Assessment.ipynb)
+#### [Notebook 4: Initial Modeling Assessment](Notebooks, Data and Outputs/Notebook 4 Initial Modeling Assessment.ipynb)
 This notebook documents the initial attempts at classifying the data set using different machine learning models, including employing GridSearchCV.
 
 ### Notebooks, Data and Outputs/RawData/
