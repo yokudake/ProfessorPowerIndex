@@ -1,7 +1,7 @@
 # Professor Power Index
 BrainStation Capstone Project
 
-Kelly-Marie Yokuda, Data Science Diploma Candidate 
+By Kelly-Marie Yokuda, Data Science Diploma Candidate 
 
 ## Repository Contents
 
